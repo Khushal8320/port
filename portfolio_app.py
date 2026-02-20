@@ -1,6 +1,6 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
-# ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Khushal Patel · Data Scientist",
     page_icon="⚡",
@@ -8,1042 +8,358 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# ── Global CSS ────────────────────────────────────────────────────────────────
+# Hide Streamlit default chrome
 st.markdown("""
 <style>
-/* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
-
-/* ── Reset & Root ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --cream:    #F5F2EC;
-  --ink:      #0F0E0C;
-  --charcoal: #1E1D1B;
-  --forest:   #1A3D2E;
-  --sage:     #3B6E52;
-  --mint:     #6FBFA0;
-  --gold:     #C9A84C;
-  --warm:     #E8E0D0;
-  --border:   #D4CCBC;
-  --muted:    #7A7468;
-}
-
-/* ── Streamlit chrome hide ── */
 #MainMenu, footer, header { visibility: hidden; }
 .stAppDeployButton { display: none; }
 section[data-testid="stSidebar"] { display: none; }
 div[data-testid="stDecoration"] { display: none; }
-
-/* ── App shell ── */
-.stApp {
-  background: var(--cream) !important;
-  font-family: 'DM Sans', sans-serif;
-  color: var(--ink);
-}
-
-.block-container {
-  padding: 0 !important;
-  max-width: 100% !important;
-}
-
-/* ── Hero ── */
-.hero {
-  background: var(--forest);
-  background-image:
-    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(107,191,160,0.18) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 80% at 10% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
-  color: var(--cream);
-  padding: 96px 72px 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 340px; height: 340px;
-  border: 1.5px solid rgba(111,191,160,0.25);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -80px; left: 50px;
-  width: 220px; height: 220px;
-  border: 1px solid rgba(201,168,76,0.20);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.hero-tag {
-  display: inline-block;
-  background: rgba(111,191,160,0.18);
-  border: 1px solid rgba(111,191,160,0.45);
-  color: var(--mint);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 2px;
-  margin-bottom: 28px;
-}
-
-.hero-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(52px, 7vw, 88px);
-  line-height: 1.02;
-  letter-spacing: -1.5px;
-  margin-bottom: 8px;
-}
-
-.hero-name span {
-  color: var(--mint);
-}
-
-.hero-title {
-  font-size: 18px;
-  font-weight: 300;
-  color: rgba(245,242,236,0.65);
-  margin-bottom: 32px;
-  letter-spacing: 0.5px;
-}
-
-.hero-desc {
-  max-width: 540px;
-  font-size: 15.5px;
-  line-height: 1.75;
-  color: rgba(245,242,236,0.80);
-  margin-bottom: 44px;
-}
-
-.hero-contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 48px;
-}
-
-.hero-contact-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: rgba(245,242,236,0.70);
-  text-decoration: none;
-}
-
-.hero-contact-item:hover {
-  color: var(--mint);
-}
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--gold);
-  color: var(--charcoal);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 14px 32px;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  margin-right: 16px;
-}
-
-.hero-cta:hover {
-  background: #d4b358;
-}
-
-.hero-cta-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid rgba(245,242,236,0.35);
-  color: rgba(245,242,236,0.85);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 14px 32px;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.hero-cta-ghost:hover {
-  border-color: var(--mint);
-  color: var(--mint);
-}
-
-/* ── Stats strip ── */
-.stats-strip {
-  background: var(--charcoal);
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;
-}
-
-.stat-cell {
-  padding: 36px 56px;
-  text-align: center;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  flex: 1;
-  min-width: 150px;
-}
-
-.stat-cell:last-child { border-right: none; }
-
-.stat-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 38px;
-  color: var(--mint);
-  display: block;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.40);
-}
-
-/* ── Sections ── */
-.section {
-  padding: 88px 72px;
-}
-
-.section-alt {
-  background: var(--warm);
-}
-
-.section-dark {
-  background: var(--charcoal);
-  color: var(--cream);
-}
-
-.section-header {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  margin-bottom: 56px;
-}
-
-.section-num {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--mint);
-  letter-spacing: 1px;
-  min-width: 28px;
-}
-
-.section-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 42px;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-}
-
-.section-dark .section-title { color: var(--cream); }
-
-.section-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-  margin-left: 24px;
-  align-self: center;
-}
-
-.section-dark .section-line { background: rgba(255,255,255,0.10); }
-
-/* ── About ── */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.about-text {
-  font-size: 16px;
-  line-height: 1.85;
-  color: #3A3830;
-}
-
-.about-text p { margin-bottom: 20px; }
-
-.about-values {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.value-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.value-item:last-child { border-bottom: none; }
-
-.value-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--forest);
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.value-label {
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--forest);
-  margin-bottom: 4px;
-}
-
-.value-desc {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* ── Skills ── */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
-}
-
-.skill-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 32px;
-  transition: all 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.skill-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 100%;
-  background: var(--sage);
-}
-
-.skill-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-}
-
-.skill-category {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 16px;
-}
-
-.skill-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 22px;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
-
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skill-tag {
-  background: var(--cream);
-  border: 1px solid var(--border);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--charcoal);
-  padding: 4px 12px;
-  border-radius: 2px;
-}
-
-/* ── Projects ── */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
-.project-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 4px;
-  padding: 36px;
-  transition: all 0.25s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-card:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(111,191,160,0.35);
-  transform: translateY(-2px);
-}
-
-.project-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 18px;
-}
-
-.project-num {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: 48px;
-  color: rgba(111,191,160,0.18);
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.project-icon {
-  font-size: 30px;
-  line-height: 1;
-}
-
-.project-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 23px;
-  color: var(--cream);
-  margin-bottom: 14px;
-  line-height: 1.25;
-}
-
-.project-desc {
-  font-size: 14px;
-  line-height: 1.8;
-  color: rgba(245,242,236,0.62);
-  margin-bottom: 24px;
-  flex: 1;
-}
-
-.project-metrics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.metric-badge {
-  background: rgba(111,191,160,0.15);
-  border: 1px solid rgba(111,191,160,0.30);
-  color: var(--mint);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 2px;
-}
-
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.project-tag {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  color: rgba(245,242,236,0.45);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  padding: 4px 10px;
-  border-radius: 2px;
-  text-transform: uppercase;
-}
-
-/* ── Experience ── */
-.exp-timeline {
-  border-left: 2px solid var(--border);
-  padding-left: 36px;
-}
-
-.exp-item {
-  padding-bottom: 48px;
-}
-
-.exp-item:last-child { padding-bottom: 0; }
-
-.exp-period {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 8px;
-}
-
-.exp-period::before {
-  content: '';
-  display: inline-block;
-  width: 10px; height: 10px;
-  background: var(--sage);
-  border-radius: 50%;
-  border: 2px solid var(--cream);
-  box-shadow: 0 0 0 2px var(--sage);
-  flex-shrink: 0;
-  margin-left: -42px;
-  margin-right: 6px;
-}
-
-.exp-role {
-  font-family: 'DM Serif Display', serif;
-  font-size: 26px;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-
-.exp-company {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 20px;
-  font-style: italic;
-}
-
-.exp-points {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.exp-points li {
-  font-size: 15px;
-  line-height: 1.65;
-  color: #3A3830;
-  display: flex;
-  gap: 12px;
-}
-
-.exp-points li::before {
-  content: '—';
-  color: var(--mint);
-  flex-shrink: 0;
-  font-weight: 300;
-}
-
-/* ── Education ── */
-.edu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-
-.edu-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 4px;
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-}
-
-.edu-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--mint), var(--gold));
-}
-
-.edu-degree {
-  font-family: 'DM Serif Display', serif;
-  font-size: 20px;
-  color: var(--cream);
-  margin-bottom: 10px;
-  line-height: 1.3;
-}
-
-.edu-school {
-  font-size: 13px;
-  color: var(--mint);
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.edu-location {
-  font-size: 12px;
-  color: rgba(245,242,236,0.40);
-  letter-spacing: 1px;
-}
-
-/* ── Contact ── */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.contact-intro {
-  font-family: 'DM Serif Display', serif;
-  font-size: 36px;
-  line-height: 1.2;
-  margin-bottom: 24px;
-  color: var(--ink);
-  letter-spacing: -0.5px;
-}
-
-.contact-sub {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--muted);
-  margin-bottom: 36px;
-}
-
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  text-decoration: none;
-  color: var(--ink);
-  transition: all 0.2s;
-}
-
-.contact-link:last-child { border-bottom: none; }
-
-.contact-link:hover { color: var(--sage); }
-.contact-link:hover .contact-link-icon { background: var(--forest); color: var(--mint); }
-
-.contact-link-icon {
-  width: 42px; height: 42px;
-  background: var(--warm);
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-
-.contact-link-label { font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
-.contact-link-value { font-size: 15px; font-weight: 500; }
-
-/* ── Footer ── */
-.footer {
-  background: var(--ink);
-  color: rgba(245,242,236,0.35);
-  text-align: center;
-  padding: 28px;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-}
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .hero { padding: 64px 28px 56px; }
-  .section { padding: 64px 28px; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .stat-cell { padding: 28px 24px; }
-}
+.stApp { background: #163529 !important; }
+.block-container { padding: 0 !important; max-width: 100% !important; }
+iframe { border: none !important; display: block; }
 </style>
 """, unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════════════════════
-# HERO
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="hero">
-  <div class="hero-tag">⚡ Available for Opportunities</div>
-  <div class="hero-name">Khushal<br><span>Patel</span></div>
-  <div class="hero-title">Data Scientist · Machine Learning Engineer · Software Developer</div>
-  <div class="hero-desc">
-    Building intelligent, end-to-end analytical solutions — from raw data to deployed models.
-    Passionate about energy systems, emissions reduction, and AI that creates real-world impact.
+# Full portfolio via components.html — bypasses Streamlit's HTML sanitizer completely
+components.html("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F5F2EC; --ink: #0F0E0C; --charcoal: #1A1917;
+  --forest: #163529; --sage: #2E6B4F; --mint: #5DBFA0;
+  --gold: #C9A84C; --warm: #EDE8DF; --border: #D5CCBC; --muted: #7A7468;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); margin: 0; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  background: rgba(22,53,41,0.99);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 64px;
+  border-bottom: 1px solid rgba(93,191,160,0.15);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-logo { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--cream); letter-spacing: -0.3px; }
+.nav-logo span { color: var(--mint); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--mint); }
+.nav-cta { background: var(--gold) !important; color: var(--charcoal) !important; padding: 8px 20px; border-radius: 2px; }
+
+/* HERO */
+#hero {
+  background: var(--forest);
+  background-image: radial-gradient(ellipse 90% 70% at 75% 55%, rgba(93,191,160,0.16) 0%, transparent 65%), radial-gradient(ellipse 50% 90% at 5% 85%, rgba(201,168,76,0.12) 0%, transparent 55%);
+  color: var(--cream); padding: 100px 80px 80px;
+  position: relative; overflow: hidden;
+}
+.ring { position: absolute; border-radius: 50%; pointer-events: none; }
+.r1 { width: 440px; height: 440px; top: -80px; right: -80px; border: 1px solid rgba(93,191,160,0.18); animation: spin 30s linear infinite; }
+.r2 { width: 280px; height: 280px; top: 40px; right: 40px; border: 1px solid rgba(201,168,76,0.12); animation: spin 20s linear infinite reverse; }
+.r3 { width: 200px; height: 200px; bottom: -60px; left: 80px; border: 1px solid rgba(93,191,160,0.10); }
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.hero-content { max-width: 720px; position: relative; z-index: 2; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(93,191,160,0.15); border: 1px solid rgba(93,191,160,0.40); color: var(--mint); font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; padding: 7px 18px; border-radius: 2px; margin-bottom: 32px; }
+.bdot { width: 6px; height: 6px; background: var(--mint); border-radius: 50%; animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
+.hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(56px,8vw,96px); line-height: 0.95; letter-spacing: -3px; color: var(--cream); margin-bottom: 14px; }
+.hero-name .accent { color: var(--mint); }
+.hero-title { font-size: 16px; font-weight: 300; letter-spacing: 1px; color: rgba(245,242,236,0.50); margin-bottom: 28px; }
+.hero-desc { font-size: 15.5px; line-height: 1.8; color: rgba(245,242,236,0.75); max-width: 500px; margin-bottom: 40px; border-left: 2px solid var(--mint); padding-left: 20px; }
+.hero-contacts { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 40px; }
+.hc { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(245,242,236,0.60); text-decoration: none; transition: color 0.2s; }
+.hc:hover { color: var(--mint); }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-gold { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--charcoal); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 14px 32px; border-radius: 2px; text-decoration: none; transition: all 0.2s; }
+.btn-gold:hover { background: #d4b358; transform: translateY(-1px); }
+.btn-out { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(245,242,236,0.28); color: rgba(245,242,236,0.80); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 14px 32px; border-radius: 2px; text-decoration: none; transition: all 0.2s; }
+.btn-out:hover { border-color: var(--mint); color: var(--mint); }
+
+/* STATS */
+.stats { background: var(--charcoal); display: grid; grid-template-columns: repeat(5,1fr); }
+.stat { padding: 40px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.05); }
+.stat:last-child { border-right: none; }
+.snum { font-family: 'DM Serif Display', serif; font-size: 42px; color: var(--mint); display: block; line-height: 1; margin-bottom: 10px; }
+.slbl { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.32); line-height: 1.5; }
+
+/* SECTIONS */
+.sec { padding: 88px 80px; }
+.sec-warm { background: var(--warm); }
+.sec-dark { background: var(--charcoal); color: var(--cream); }
+.sec-hd { display: flex; align-items: center; gap: 16px; margin-bottom: 56px; }
+.sn { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: var(--mint); min-width: 24px; }
+.st { font-family: 'DM Serif Display', serif; font-size: 44px; letter-spacing: -1px; white-space: nowrap; }
+.sl { flex: 1; height: 1px; background: var(--border); }
+.sec-dark .sl { background: rgba(255,255,255,0.08); }
+
+/* ABOUT */
+.about-g { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: start; }
+.atext { font-size: 15.5px; line-height: 1.9; color: #3A3830; }
+.atext p { margin-bottom: 20px; }
+.atext p:last-child { margin-bottom: 0; }
+.hl { color: var(--sage); font-weight: 600; }
+.vals { display: flex; flex-direction: column; }
+.val { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.2s; }
+.val:first-child { padding-top: 0; }
+.val:last-child { border-bottom: none; }
+.val:hover { padding-left: 6px; }
+.vico { width: 42px; height: 42px; background: var(--forest); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.vt { font-weight: 600; font-size: 13px; color: var(--forest); margin-bottom: 4px; }
+.vd { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* SKILLS */
+.skills-g { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; }
+.skcard { background: white; border: 1px solid var(--border); border-radius: 3px; padding: 28px; transition: all 0.25s; border-top: 3px solid var(--sage); }
+.skcard:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
+.skcat { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); margin-bottom: 12px; }
+.skname { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink); margin-bottom: 18px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag { background: var(--cream); border: 1px solid var(--border); font-size: 11px; font-weight: 500; color: var(--charcoal); padding: 4px 11px; border-radius: 2px; }
+
+/* PROJECTS */
+.proj-g { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.pcard { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 3px; padding: 36px; display: flex; flex-direction: column; transition: all 0.25s; border-bottom: 2px solid transparent; }
+.pcard:hover { background: rgba(255,255,255,0.08); border-bottom-color: var(--mint); transform: translateY(-3px); }
+.ptop { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.pico { font-size: 30px; line-height: 1; }
+.pnum { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 44px; color: rgba(93,191,160,0.18); line-height: 1; }
+.pname { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--cream); margin-bottom: 12px; line-height: 1.3; }
+.pdesc { font-size: 14px; line-height: 1.8; color: rgba(245,242,236,0.62); margin-bottom: 24px; flex: 1; }
+.pmets { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 20px; }
+.met { background: rgba(93,191,160,0.14); border: 1px solid rgba(93,191,160,0.28); color: var(--mint); font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 2px; }
+.ptags { display: flex; flex-wrap: wrap; gap: 7px; }
+.ptag { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: rgba(245,242,236,0.38); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase; }
+
+/* EXPERIENCE */
+.exp-g { display: grid; grid-template-columns: 260px 1fr; gap: 72px; align-items: start; }
+.exp-aside-lbl { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); margin-bottom: 16px; }
+.exp-aside-t { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--ink); margin-bottom: 14px; line-height: 1.2; }
+.exp-aside-d { font-size: 13.5px; line-height: 1.7; color: var(--muted); }
+.timeline { border-left: 2px solid var(--border); padding-left: 32px; }
+.exp-item { padding-bottom: 48px; }
+.exp-item:last-child { padding-bottom: 0; }
+.ep-wrap { display: flex; align-items: center; margin-bottom: 8px; margin-left: -40px; gap: 12px; }
+.edot { width: 12px; height: 12px; background: var(--sage); border-radius: 50%; border: 2.5px solid var(--cream); box-shadow: 0 0 0 2.5px var(--sage); flex-shrink: 0; }
+.eperiod { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sage); }
+.erole { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--ink); margin-bottom: 4px; }
+.ecomp { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-style: italic; }
+.epoints { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.epoints li { font-size: 14.5px; line-height: 1.7; color: #3A3830; display: flex; gap: 12px; align-items: flex-start; }
+.epoints li::before { content: '→'; color: var(--mint); flex-shrink: 0; font-size: 13px; margin-top: 3px; }
+.echips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.echip { background: var(--warm); border: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--forest); padding: 5px 13px; border-radius: 2px; }
+
+/* EDUCATION */
+.edu-g { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.ecard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; padding: 34px; transition: all 0.25s; border-bottom: 2px solid transparent; }
+.ecard:hover { background: rgba(255,255,255,0.08); border-bottom-color: var(--gold); transform: translateY(-3px); }
+.eico { font-size: 28px; margin-bottom: 18px; display: block; }
+.edeg { font-family: 'DM Serif Display', serif; font-size: 21px; color: var(--cream); margin-bottom: 12px; line-height: 1.3; }
+.eschool { font-size: 13px; color: var(--mint); margin-bottom: 8px; font-weight: 500; }
+.eloc { font-size: 12px; color: rgba(245,242,236,0.35); }
+
+/* CONTACT */
+.contact-g { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.chd { font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 1.1; color: var(--ink); margin-bottom: 16px; letter-spacing: -1px; }
+.chd span { color: var(--sage); }
+.csub { font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 28px; }
+.abadge { display: inline-flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); padding: 10px 18px; border-radius: 2px; font-size: 13px; color: var(--muted); }
+.gdot { width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; animation: pulse 2s ease infinite; }
+.clinks { display: flex; flex-direction: column; }
+.clink { display: flex; align-items: center; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); transition: all 0.2s; }
+.clink:last-child { border-bottom: none; }
+.clink:hover { padding-left: 8px; color: var(--sage); }
+.clink:hover .cion { background: var(--forest); }
+.cion { width: 44px; height: 44px; background: var(--warm); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; transition: background 0.2s; }
+.clbl { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+.cval { font-size: 14px; font-weight: 500; }
+
+/* FOOTER */
+footer { background: var(--ink); color: rgba(245,242,236,0.25); text-align: center; padding: 28px; font-size: 12px; letter-spacing: 1px; }
+footer span { color: var(--mint); }
+
+@media (max-width: 900px) {
+  .about-g, .contact-g, .exp-g { grid-template-columns: 1fr; gap: 40px; }
+  .skills-g, .proj-g, .edu-g { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .sec { padding: 64px 28px; }
+  #hero { padding: 80px 28px 60px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">KP<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="ring r1"></div>
+  <div class="ring r2"></div>
+  <div class="ring r3"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="bdot"></div>&nbsp;Open to Opportunities</div>
+    <div class="hero-name">Khushal<br><span class="accent">Patel</span></div>
+    <div class="hero-title">Data Scientist &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Software Developer</div>
+    <div class="hero-desc">Building intelligent, end-to-end analytical solutions — from raw data to deployed models. Passionate about energy systems, emissions reduction, and AI that drives real-world impact.</div>
+    <div class="hero-contacts">
+      <a class="hc" href="mailto:patelkhushal222@gmail.com">📧 patelkhushal222@gmail.com</a>
+      <a class="hc" href="tel:+14033977009">📞 +1 (403) 397-7009</a>
+      <span class="hc">📍 Calgary, Canada</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn-gold" href="mailto:patelkhushal222@gmail.com">Get in Touch →</a>
+      <a class="btn-out" href="https://github.com/Khushal8320" target="_blank">GitHub ↗</a>
+      <a class="btn-out" href="https://www.linkedin.com/in/khushal-patel-215b20343" target="_blank">LinkedIn ↗</a>
+    </div>
   </div>
-  <div class="hero-contacts">
-    <a class="hero-contact-item" href="mailto:patelkhushal222@gmail.com">
-      📧 patelkhushal222@gmail.com
-    </a>
-    <a class="hero-contact-item" href="tel:+14033977009">
-      📞 +1 (403) 397-7009
-    </a>
-    <span class="hero-contact-item">📍 Calgary, Canada</span>
-  </div>
-  <a class="hero-cta" href="mailto:patelkhushal222@gmail.com">Get in Touch</a>
-  <a class="hero-cta-ghost" href="https://github.com/Khushal8320" target="_blank">GitHub ↗</a>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="snum">93%</span><div class="slbl">Critical Patient<br>Recall</div></div>
+  <div class="stat"><span class="snum">~90%</span><div class="slbl">Housing Model<br>Accuracy</div></div>
+  <div class="stat"><span class="snum">25%</span><div class="slbl">App Response<br>Improved</div></div>
+  <div class="stat"><span class="snum">40%</span><div class="slbl">Triage Workload<br>Reduced</div></div>
+  <div class="stat"><span class="snum">3+</span><div class="slbl">Years<br>Experience</div></div>
 </div>
-""", unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════════════════════
-# STATS STRIP
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="stats-strip">
-  <div class="stat-cell"><span class="stat-num">93%</span><div class="stat-label">Patient Recall (Triage AI)</div></div>
-  <div class="stat-cell"><span class="stat-num">90%</span><div class="stat-label">Model Accuracy (Housing)</div></div>
-  <div class="stat-cell"><span class="stat-num">25%</span><div class="stat-label">App Response Time Improved</div></div>
-  <div class="stat-cell"><span class="stat-num">40%</span><div class="stat-label">Triage Workload Reduced</div></div>
-  <div class="stat-cell"><span class="stat-num">3+</span><div class="stat-label">Years Experience</div></div>
-</div>
-""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════════════════════════
-# ABOUT
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <span class="section-title">About Me</span>
-    <span class="section-line"></span>
-  </div>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>
-        I'm a Data Science and Machine Learning professional based in Calgary, Canada, with a
-        background spanning industrial analytics, healthcare AI, and full-stack software development.
-        My work bridges rigorous statistical thinking with production-grade engineering — I care
-        equally about the math behind a model and the system that puts it into practice.
-      </p>
-      <p>
-        With dual post-graduate credentials in Artificial Intelligence and Data Science from SAIT,
-        and hands-on software engineering experience in Agile teams, I approach problems with both
-        depth and pragmatism.
-      </p>
-      <p>
-        I'm particularly drawn to applications in energy systems, emissions reduction, and industrial
-        analytics — domains where better data and smarter models can have lasting environmental and
-        social impact.
-      </p>
+<section id="about" class="sec">
+  <div class="sec-hd"><span class="sn">01</span><span class="st">About Me</span><span class="sl"></span></div>
+  <div class="about-g">
+    <div class="atext">
+      <p>I'm a <span class="hl">Data Science and Machine Learning professional</span> based in Calgary, Canada, with a background spanning industrial analytics, healthcare AI, and full-stack software development. My work bridges rigorous statistical thinking with production-grade engineering.</p>
+      <p>With dual post-graduate credentials in <span class="hl">Artificial Intelligence and Data Science</span> from SAIT, and hands-on software engineering experience in Agile teams, I approach problems with both depth and pragmatism.</p>
+      <p>I'm particularly drawn to applications in <span class="hl">energy systems, emissions reduction, and industrial analytics</span> — domains where better data and smarter models can have lasting environmental and social impact.</p>
     </div>
-    <div class="about-values">
-      <div class="value-item">
-        <div class="value-icon">🎯</div>
-        <div>
-          <div class="value-label">Impact-Driven</div>
-          <div class="value-desc">Every model I build serves a real decision. I measure success by the value delivered, not just the metric achieved.</div>
-        </div>
-      </div>
-      <div class="value-item">
-        <div class="value-icon">🌿</div>
-        <div>
-          <div class="value-label">Sustainability Focus</div>
-          <div class="value-desc">Deep interest in energy systems and emissions analytics — using data to accelerate the energy transition.</div>
-        </div>
-      </div>
-      <div class="value-item">
-        <div class="value-icon">🤝</div>
-        <div>
-          <div class="value-label">Collaborative Builder</div>
-          <div class="value-desc">Experienced in Agile teams, code reviews, and communicating results clearly to both technical and non-technical stakeholders.</div>
-        </div>
-      </div>
-      <div class="value-item">
-        <div class="value-icon">📐</div>
-        <div>
-          <div class="value-label">End-to-End Ownership</div>
-          <div class="value-desc">From data wrangling and EDA through model training, evaluation, and Streamlit deployment — I own the full pipeline.</div>
-        </div>
-      </div>
+    <div class="vals">
+      <div class="val"><div class="vico">🎯</div><div><div class="vt">Impact-Driven</div><div class="vd">Every model serves a real decision. I measure success by value delivered, not just the metric achieved.</div></div></div>
+      <div class="val"><div class="vico">🌿</div><div><div class="vt">Sustainability Focus</div><div class="vd">Deep interest in energy systems and emissions analytics — using data to accelerate the energy transition.</div></div></div>
+      <div class="val"><div class="vico">🤝</div><div><div class="vt">Collaborative Builder</div><div class="vd">Experienced in Agile teams, communicating results clearly to both technical and non-technical stakeholders.</div></div></div>
+      <div class="val"><div class="vico">📐</div><div><div class="vt">End-to-End Ownership</div><div class="vd">From data wrangling and EDA through model training, evaluation, and Streamlit deployment — I own the full pipeline.</div></div></div>
     </div>
   </div>
-</div>
-""", unsafe_allow_html=True)
+</section>
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SKILLS
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section section-alt">
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <span class="section-title">Technical Skills</span>
-    <span class="section-line"></span>
+<section id="skills" class="sec sec-warm">
+  <div class="sec-hd"><span class="sn">02</span><span class="st">Technical Skills</span><span class="sl"></span></div>
+  <div class="skills-g">
+    <div class="skcard"><div class="skcat">Core Languages</div><div class="skname">Programming</div><div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Ruby</span><span class="tag">JavaScript</span></div></div>
+    <div class="skcard"><div class="skcat">Machine Learning & Data</div><div class="skname">ML & Analytics</div><div class="tags"><span class="tag">Scikit-learn</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Feature Engineering</span><span class="tag">Model Evaluation</span><span class="tag">Classification</span></div></div>
+    <div class="skcard"><div class="skcat">Frameworks & Tools</div><div class="skname">Development</div><div class="tags"><span class="tag">Ruby on Rails</span><span class="tag">React.js</span><span class="tag">Streamlit</span><span class="tag">Git / GitHub</span><span class="tag">REST APIs</span></div></div>
+    <div class="skcard"><div class="skcat">Practices & Methods</div><div class="skname">Engineering</div><div class="tags"><span class="tag">Agile / Scrum</span><span class="tag">Code Review</span><span class="tag">EDA</span><span class="tag">Data Wrangling</span><span class="tag">Dashboard Design</span></div></div>
   </div>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-category">Core Languages</div>
-      <div class="skill-name">Programming</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Python</span>
-        <span class="skill-tag">SQL</span>
-        <span class="skill-tag">Ruby</span>
-        <span class="skill-tag">JavaScript</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-category">Machine Learning & Data</div>
-      <div class="skill-name">ML & Analytics</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Scikit-learn</span>
-        <span class="skill-tag">Pandas</span>
-        <span class="skill-tag">NumPy</span>
-        <span class="skill-tag">Feature Engineering</span>
-        <span class="skill-tag">Model Evaluation</span>
-        <span class="skill-tag">Classification</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-category">Frameworks & Tools</div>
-      <div class="skill-name">Development</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Ruby on Rails</span>
-        <span class="skill-tag">React.js</span>
-        <span class="skill-tag">Streamlit</span>
-        <span class="skill-tag">Git</span>
-        <span class="skill-tag">GitHub</span>
-        <span class="skill-tag">REST APIs</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-category">Practices & Methods</div>
-      <div class="skill-name">Engineering</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Agile / Scrum</span>
-        <span class="skill-tag">Code Review</span>
-        <span class="skill-tag">API Integration</span>
-        <span class="skill-tag">EDA</span>
-        <span class="skill-tag">Data Wrangling</span>
-        <span class="skill-tag">Dashboard Design</span>
-      </div>
-    </div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
+</section>
 
-# ══════════════════════════════════════════════════════════════════════════════
-# PROJECTS
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section section-dark">
-  <div class="section-header">
-    <span class="section-num" style="color:var(--mint)">03</span>
-    <span class="section-title" style="color:var(--cream)">Featured Projects</span>
-    <span class="section-line"></span>
-  </div>
-  <div class="projects-grid">
+<section id="projects" class="sec sec-dark">
+  <div class="sec-hd"><span class="sn" style="color:var(--mint)">03</span><span class="st">Featured Projects</span><span class="sl"></span></div>
+  <div class="proj-g">
 
-    <div class="project-card">
-      <div class="project-card-top">
-        <span class="project-icon">🏥</span>
-        <span class="project-num">01</span>
-      </div>
-      <div class="project-name">Emergency Triage ML Application</div>
-      <div class="project-desc">
-        A machine learning–based triage system that prioritizes emergency patients using clinical
-        features and symptom data. Built a real-time Streamlit dashboard providing severity
-        classification and probability-based clinical recommendations for frontline decision support.
-      </div>
-      <div class="project-metrics">
-        <span class="metric-badge">92% Critical Patient Recall</span>
-        <span class="metric-badge">40% Workload Reduction</span>
-      </div>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">Scikit-learn</span>
-        <span class="project-tag">Streamlit</span>
-        <span class="project-tag">Healthcare AI</span>
-      </div>
+    <div class="pcard">
+      <div class="ptop"><span class="pico">🏥</span><span class="pnum">01</span></div>
+      <div class="pname">Emergency Triage ML Application</div>
+      <div class="pdesc">A machine learning–based triage system that prioritizes emergency patients using clinical features and symptom data. Built a real-time Streamlit dashboard providing severity classification and probability-based clinical recommendations for frontline decision support.</div>
+      <div class="pmets"><span class="met">92% Critical Patient Recall</span><span class="met">40% Workload Reduction</span></div>
+      <div class="ptags"><span class="ptag">Python</span><span class="ptag">Scikit-learn</span><span class="ptag">Streamlit</span><span class="ptag">Healthcare AI</span></div>
     </div>
 
-    <div class="project-card">
-      <div class="project-card-top">
-        <span class="project-icon">🏠</span>
-        <span class="project-num">02</span>
-      </div>
-      <div class="project-name">Ames Housing Price Prediction</div>
-      <div class="project-desc">
-        End-to-end regression pipeline for predicting residential housing prices. Focused on advanced
-        feature engineering and ensemble classification techniques to achieve high predictive accuracy
-        across the Ames dataset.
-      </div>
-      <div class="project-metrics">
-        <span class="metric-badge">~90% Model Accuracy</span>
-      </div>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">Pandas</span>
-        <span class="project-tag">Feature Engineering</span>
-        <span class="project-tag">Regression</span>
-      </div>
+    <div class="pcard">
+      <div class="ptop"><span class="pico">🏠</span><span class="pnum">02</span></div>
+      <div class="pname">Ames Housing Price Prediction</div>
+      <div class="pdesc">End-to-end regression pipeline for predicting residential housing prices. Focused on advanced feature engineering and ensemble classification techniques to achieve high predictive accuracy across the full Ames dataset.</div>
+      <div class="pmets"><span class="met">~90% Model Accuracy</span></div>
+      <div class="ptags"><span class="ptag">Python</span><span class="ptag">Pandas</span><span class="ptag">Feature Engineering</span><span class="ptag">Regression</span></div>
     </div>
 
-    <div class="project-card">
-      <div class="project-card-top">
-        <span class="project-icon">🛡️</span>
-        <span class="project-num">03</span>
-      </div>
-      <div class="project-name">E-Commerce Fraud Detection</div>
-      <div class="project-desc">
-        Supervised classification system to detect fraudulent e-commerce transactions. Carefully
-        balanced precision and recall to minimize false positives while maintaining high fraud
-        detection sensitivity, improving trust and reducing costly manual reviews.
-      </div>
-      <div class="project-metrics">
-        <span class="metric-badge">95% Precision</span>
-        <span class="metric-badge">30% Fewer False Positives</span>
-      </div>
-      <div class="project-tags">
-        <span class="project-tag">Python</span>
-        <span class="project-tag">Scikit-learn</span>
-        <span class="project-tag">Classification</span>
-        <span class="project-tag">Fraud Analytics</span>
-      </div>
+    <div class="pcard">
+      <div class="ptop"><span class="pico">🛡️</span><span class="pnum">03</span></div>
+      <div class="pname">E-Commerce Fraud Detection</div>
+      <div class="pdesc">Supervised classification system to detect fraudulent e-commerce transactions. Carefully balanced precision and recall to minimize false positives while maintaining high detection sensitivity, reducing costly manual review overhead.</div>
+      <div class="pmets"><span class="met">95% Precision</span><span class="met">30% Fewer False Positives</span></div>
+      <div class="ptags"><span class="ptag">Python</span><span class="ptag">Scikit-learn</span><span class="ptag">Classification</span><span class="ptag">Fraud Analytics</span></div>
     </div>
 
   </div>
-</div>
-""", unsafe_allow_html=True)
+</section>
 
-# ══════════════════════════════════════════════════════════════════════════════
-# EXPERIENCE
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section">
-  <div class="section-header">
-    <span class="section-num">04</span>
-    <span class="section-title">Experience</span>
-    <span class="section-line"></span>
-  </div>
-  <div class="exp-timeline">
-    <div class="exp-item">
-      <div class="exp-period">July 2023 – October 2024</div>
-      <div class="exp-role">Software Developer</div>
-      <div class="exp-company">Bacancy Services Ltd. · India</div>
-      <ul class="exp-points">
-        <li>Supported the development and maintenance of scalable web applications using Ruby on Rails and React.js within cross-functional Agile teams.</li>
-        <li>Improved application response time by 25% through systematic optimization of backend logic and database queries.</li>
-        <li>Delivered production features with zero critical defects by actively participating in code reviews and sprint planning processes.</li>
-        <li>Implemented API integrations to bridge backend services with frontend functionality, enhancing overall application reliability.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════════════════════════
-# EDUCATION
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section section-dark">
-  <div class="section-header">
-    <span class="section-num" style="color:var(--mint)">05</span>
-    <span class="section-title" style="color:var(--cream)">Education</span>
-    <span class="section-line"></span>
-  </div>
-  <div class="edu-grid">
-    <div class="edu-card">
-      <div class="edu-degree">Integrated Artificial Intelligence Post-Diploma</div>
-      <div class="edu-school">Southern Alberta Institute of Technology</div>
-      <div class="edu-location">📍 Calgary, Alberta, Canada</div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-degree">Data Science Post-Graduate Certificate</div>
-      <div class="edu-school">Southern Alberta Institute of Technology</div>
-      <div class="edu-location">📍 Calgary, Alberta, Canada</div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-degree">Bachelor of Information Technology</div>
-      <div class="edu-school">Gujarat Technological University</div>
-      <div class="edu-location">📍 Gujarat, India</div>
-    </div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════════════════════════
-# CONTACT
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="section section-alt">
-  <div class="section-header">
-    <span class="section-num">06</span>
-    <span class="section-title">Let's Connect</span>
-    <span class="section-line"></span>
-  </div>
-  <div class="contact-grid">
+<section id="experience" class="sec">
+  <div class="sec-hd"><span class="sn">04</span><span class="st">Experience</span><span class="sl"></span></div>
+  <div class="exp-g">
     <div>
-      <div class="contact-intro">Open to roles in Data Science & ML Engineering</div>
-      <div class="contact-sub">
-        Whether you're building an analytics team, exploring AI-driven products, or looking for
-        someone who can go from raw data to a deployed model — I'd love to hear from you.
-        Currently based in Calgary, open to hybrid and remote opportunities.
+      <div class="exp-aside-lbl">Work History</div>
+      <div class="exp-aside-t">Building things that matter</div>
+      <div class="exp-aside-d">From production web apps to data pipelines — every role has sharpened my ability to deliver reliable, scalable solutions in team environments.</div>
+    </div>
+    <div class="timeline">
+      <div class="exp-item">
+        <div class="ep-wrap"><div class="edot"></div><div class="eperiod">July 2023 – October 2024</div></div>
+        <div class="erole">Software Developer</div>
+        <div class="ecomp">Bacancy Services Ltd. · India</div>
+        <ul class="epoints">
+          <li>Developed and maintained scalable web applications using Ruby on Rails and React.js within cross-functional Agile teams.</li>
+          <li>Improved application response time by 25% through systematic optimization of backend logic and database queries.</li>
+          <li>Delivered production features with zero critical defects by actively participating in code reviews and sprint planning.</li>
+          <li>Implemented API integrations to bridge backend services with frontend functionality, enhancing overall application reliability.</li>
+        </ul>
+        <div class="echips"><span class="echip">Ruby on Rails</span><span class="echip">React.js</span><span class="echip">Agile</span><span class="echip">API Integration</span></div>
       </div>
     </div>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:patelkhushal222@gmail.com">
-        <div class="contact-link-icon">📧</div>
-        <div>
-          <div class="contact-link-label">Email</div>
-          <div class="contact-link-value">patelkhushal222@gmail.com</div>
-        </div>
-      </a>
-      <a class="contact-link" href="tel:+14033977009">
-        <div class="contact-link-icon">📞</div>
-        <div>
-          <div class="contact-link-label">Phone</div>
-          <div class="contact-link-value">+1 (403) 397-7009</div>
-        </div>
-      </a>
-      <a class="contact-link" href="https://www.linkedin.com/in/khushal-patel-215b20343" target="_blank">
-        <div class="contact-link-icon">💼</div>
-        <div>
-          <div class="contact-link-label">LinkedIn</div>
-          <div class="contact-link-value">khushal-patel-215b20343</div>
-        </div>
-      </a>
-      <a class="contact-link" href="https://github.com/Khushal8320" target="_blank">
-        <div class="contact-link-icon">🐙</div>
-        <div>
-          <div class="contact-link-label">GitHub</div>
-          <div class="contact-link-value">Khushal8320</div>
-        </div>
-      </a>
+  </div>
+</section>
+
+<section id="education" class="sec sec-dark">
+  <div class="sec-hd"><span class="sn" style="color:var(--mint)">05</span><span class="st">Education</span><span class="sl"></span></div>
+  <div class="edu-g">
+    <div class="ecard"><span class="eico">🤖</span><div class="edeg">Integrated Artificial Intelligence Post-Diploma</div><div class="eschool">Southern Alberta Institute of Technology</div><div class="eloc">📍 Calgary, Alberta, Canada</div></div>
+    <div class="ecard"><span class="eico">📊</span><div class="edeg">Data Science Post-Graduate Certificate</div><div class="eschool">Southern Alberta Institute of Technology</div><div class="eloc">📍 Calgary, Alberta, Canada</div></div>
+    <div class="ecard"><span class="eico">💻</span><div class="edeg">Bachelor of Information Technology</div><div class="eschool">Gujarat Technological University</div><div class="eloc">📍 Gujarat, India</div></div>
+  </div>
+</section>
+
+<section id="contact" class="sec sec-warm">
+  <div class="sec-hd"><span class="sn">06</span><span class="st">Let's Connect</span><span class="sl"></span></div>
+  <div class="contact-g">
+    <div>
+      <div class="chd">Open to roles in <span>Data Science</span> & ML Engineering</div>
+      <div class="csub">Whether you're building an analytics team, exploring AI-driven products, or need someone who can go from raw data to a deployed model — I'd love to hear from you. Currently based in Calgary, open to hybrid and remote opportunities across Canada.</div>
+      <div class="abadge"><div class="gdot"></div>&nbsp;Available for new opportunities</div>
+    </div>
+    <div class="clinks">
+      <a class="clink" href="mailto:patelkhushal222@gmail.com"><div class="cion">📧</div><div><div class="clbl">Email</div><div class="cval">patelkhushal222@gmail.com</div></div></a>
+      <a class="clink" href="tel:+14033977009"><div class="cion">📞</div><div><div class="clbl">Phone</div><div class="cval">+1 (403) 397-7009</div></div></a>
+      <a class="clink" href="https://www.linkedin.com/in/khushal-patel-215b20343" target="_blank"><div class="cion">💼</div><div><div class="clbl">LinkedIn</div><div class="cval">khushal-patel-215b20343</div></div></a>
+      <a class="clink" href="https://github.com/Khushal8320" target="_blank"><div class="cion">🐙</div><div><div class="clbl">GitHub</div><div class="cval">Khushal8320</div></div></a>
     </div>
   </div>
-</div>
-""", unsafe_allow_html=True)
+</section>
 
-# ══════════════════════════════════════════════════════════════════════════════
-# FOOTER
-# ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="footer">
-  Designed & built with Streamlit · Khushal Patel © 2025 · Calgary, Canada
-</div>
-""", unsafe_allow_html=True)
+<footer>Designed & built with ♥ &nbsp;·&nbsp; <span>Khushal Patel</span> © 2025 &nbsp;·&nbsp; Calgary, Canada</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
+""", height=5500, scrolling=True)
