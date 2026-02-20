@@ -392,7 +392,7 @@ div[data-testid="stDecoration"] { display: none; }
 /* ── Projects ── */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
@@ -402,7 +402,8 @@ div[data-testid="stDecoration"] { display: none; }
   border-radius: 4px;
   padding: 36px;
   transition: all 0.25s ease;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
@@ -411,42 +412,48 @@ div[data-testid="stDecoration"] { display: none; }
   transform: translateY(-2px);
 }
 
+.project-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
 .project-num {
   font-family: 'DM Serif Display', serif;
   font-style: italic;
-  font-size: 52px;
-  color: rgba(111,191,160,0.15);
-  position: absolute;
-  top: 20px; right: 24px;
+  font-size: 48px;
+  color: rgba(111,191,160,0.18);
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .project-icon {
-  font-size: 28px;
-  margin-bottom: 20px;
-  display: block;
+  font-size: 30px;
+  line-height: 1;
 }
 
 .project-name {
   font-family: 'DM Serif Display', serif;
-  font-size: 24px;
+  font-size: 23px;
   color: var(--cream);
-  margin-bottom: 12px;
-  line-height: 1.2;
+  margin-bottom: 14px;
+  line-height: 1.25;
 }
 
 .project-desc {
   font-size: 14px;
-  line-height: 1.75;
-  color: rgba(245,242,236,0.60);
+  line-height: 1.8;
+  color: rgba(245,242,236,0.62);
   margin-bottom: 24px;
+  flex: 1;
 }
 
 .project-metrics {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .metric-badge {
@@ -455,7 +462,7 @@ div[data-testid="stDecoration"] { display: none; }
   color: var(--mint);
   font-size: 12px;
   font-weight: 600;
-  padding: 4px 12px;
+  padding: 5px 12px;
   border-radius: 2px;
 }
 
@@ -468,53 +475,50 @@ div[data-testid="stDecoration"] { display: none; }
 .project-tag {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.10);
-  color: rgba(245,242,236,0.50);
+  color: rgba(245,242,236,0.45);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 1px;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 2px;
   text-transform: uppercase;
 }
 
 /* ── Experience ── */
 .exp-timeline {
-  position: relative;
-  padding-left: 40px;
-}
-
-.exp-timeline::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 8px; bottom: 8px;
-  width: 1px;
-  background: var(--border);
+  border-left: 2px solid var(--border);
+  padding-left: 36px;
 }
 
 .exp-item {
-  position: relative;
   padding-bottom: 48px;
 }
 
 .exp-item:last-child { padding-bottom: 0; }
 
-.exp-dot {
-  position: absolute;
-  left: -46px; top: 8px;
-  width: 12px; height: 12px;
-  background: var(--sage);
-  border-radius: 50%;
-  border: 2px solid var(--cream);
-  box-shadow: 0 0 0 3px var(--sage);
-}
-
 .exp-period {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--sage);
   margin-bottom: 8px;
+}
+
+.exp-period::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 10px;
+  background: var(--sage);
+  border-radius: 50%;
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--sage);
+  flex-shrink: 0;
+  margin-left: -42px;
+  margin-right: 6px;
 }
 
 .exp-role {
@@ -855,8 +859,10 @@ st.markdown("""
   <div class="projects-grid">
 
     <div class="project-card">
-      <span class="project-num">01</span>
-      <span class="project-icon">🏥</span>
+      <div class="project-card-top">
+        <span class="project-icon">🏥</span>
+        <span class="project-num">01</span>
+      </div>
       <div class="project-name">Emergency Triage ML Application</div>
       <div class="project-desc">
         A machine learning–based triage system that prioritizes emergency patients using clinical
@@ -876,8 +882,10 @@ st.markdown("""
     </div>
 
     <div class="project-card">
-      <span class="project-num">02</span>
-      <span class="project-icon">🏠</span>
+      <div class="project-card-top">
+        <span class="project-icon">🏠</span>
+        <span class="project-num">02</span>
+      </div>
       <div class="project-name">Ames Housing Price Prediction</div>
       <div class="project-desc">
         End-to-end regression pipeline for predicting residential housing prices. Focused on advanced
@@ -896,8 +904,10 @@ st.markdown("""
     </div>
 
     <div class="project-card">
-      <span class="project-num">03</span>
-      <span class="project-icon">🛡️</span>
+      <div class="project-card-top">
+        <span class="project-icon">🛡️</span>
+        <span class="project-num">03</span>
+      </div>
       <div class="project-name">E-Commerce Fraud Detection</div>
       <div class="project-desc">
         Supervised classification system to detect fraudulent e-commerce transactions. Carefully
@@ -932,7 +942,6 @@ st.markdown("""
   </div>
   <div class="exp-timeline">
     <div class="exp-item">
-      <div class="exp-dot"></div>
       <div class="exp-period">July 2023 – October 2024</div>
       <div class="exp-role">Software Developer</div>
       <div class="exp-company">Bacancy Services Ltd. · India</div>
