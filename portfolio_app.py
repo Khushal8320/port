@@ -350,7 +350,7 @@ footer span { color: var(--mint); }
   </div>
 </section>
 
-<footer>Designed & built with ♥ &nbsp;·&nbsp; <span>Khushal Patel</span> © 2025 &nbsp;·&nbsp; Calgary, Canada</footer>
+<footer>Designed & built with ♥ &nbsp;·&nbsp; <span>Khushal Patel</span> © 2026 &nbsp;·&nbsp; Calgary, Canada</footer>
 
 <script>
   document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -362,4 +362,4 @@ footer span { color: var(--mint); }
 </script>
 </body>
 </html>
-""", height=5000, scrolling=True)
+""", height=4800, scrolling=True)
