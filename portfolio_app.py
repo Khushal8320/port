@@ -218,7 +218,7 @@ footer span { color: var(--mint); }
   <div class="hero-content">
     <div class="hero-badge"><div class="bdot"></div>&nbsp;Open to Opportunities</div>
     <div class="hero-name">Khushal<br><span class="accent">Patel</span></div>
-    <div class="hero-title">Aspiring Data Scientist &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Software Developer</div>
+    <div class="hero-title">Junior Data Scientist &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Software Developer</div>
     <div class="hero-desc">Building intelligent, end-to-end analytical solutions — from raw data to deployed models. Passionate about energy systems, emissions reduction, and AI that drives real-world impact.</div>
     <div class="hero-contacts">
       <a class="hc" href="mailto:patelkhushal222@gmail.com">📧 patelkhushal222@gmail.com</a>
