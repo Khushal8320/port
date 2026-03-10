@@ -238,7 +238,7 @@ footer span { color: var(--mint); }
   <div class="stat"><span class="snum">~90%</span><div class="slbl">Housing Model<br>Accuracy</div></div>
   <div class="stat"><span class="snum">25%</span><div class="slbl">App Response<br>Improved</div></div>
   <div class="stat"><span class="snum">40%</span><div class="slbl">Triage Workload<br>Reduced</div></div>
-  <div class="stat"><span class="snum">3+</span><div class="slbl">Years<br>Experience</div></div>
+  <div class="stat"><span class="snum">2+</span><div class="slbl">Years<br>Experience</div></div>
 </div>
 
 <section id="about" class="sec">
@@ -362,4 +362,4 @@ footer span { color: var(--mint); }
 </script>
 </body>
 </html>
-""", height=5500, scrolling=True)
+""", height=5000, scrolling=True)
